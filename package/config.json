@@ -1,0 +1,18 @@
+{
+	"title": "docs.md",
+    "vars": {
+		"aside": {
+			"warning": "WARNING"
+		},
+		"parameters": {
+			"required": "required",
+			"deprecated": "deprecated",
+			"experimental": "experimental"
+		},
+		"code": {
+			"request_title": "Request",
+			"response_title": "Response"
+		}
+	},
+	"navigation": []
+}

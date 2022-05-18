@@ -1,0 +1,64 @@
+{
+	"title": "docs.md",
+	"navigation": [
+		{
+			"content": [
+				{
+					"title": "Introduction",
+					"url": "/"
+				},
+				{
+					"title": "Getting started",
+					"url": "/getting-started"
+				},
+				{
+					"title": "Change log",
+					"url": "/changelog"
+				}
+			]
+		},
+		{
+			"title": "Configuration",
+			"content": [
+				{
+					"title": "About",
+					"url": "/configuration/about"
+				},
+				{
+					"title": "Variables",
+					"url": "/configuration/variables"
+				},
+				{
+					"title": "Navigation",
+					"content": [
+						{
+							"title": "Blocks",
+							"url": "/configuration/navigation/blocks"
+						},
+						{
+							"title": "Subcategories",
+							"url": "/configuration/navigation/subcategories"
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Custom elements",
+			"content": [
+				{
+					"title": "Aside",
+					"url": "/elements/aside"
+				},
+				{
+					"title": "Parameters",
+					"url": "/elements/parameters"
+				},
+				{
+					"title": "Code examples",
+					"url": "/elements/code-examples"
+				}
+			]
+		}
+	]
+}

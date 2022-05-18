@@ -1,0 +1,94 @@
+
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+			>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+		<title><%= $page.title %> :: <%= title %></title>
+
+		<link
+			rel="preload"
+			as="style"
+			href="./css/style.css"
+			onload="this.onload=null;this.rel='stylesheet'"
+			>
+		<link
+			rel="preload"
+			as="style"
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;600&display=swap"
+			onload="this.onload=null;this.rel='stylesheet'"
+			>
+
+		<script
+			src="./js/main.js"
+			async
+			defer
+		></script>
+	</head>
+	<body>
+		<header>
+			<div class="widther">
+				<div class="logo">
+					<img
+						src="../package/web/img/logo.svg"
+						alt="logo"
+						>
+					<div>
+						<%= title %>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="widther">
+			<nav>
+				<% for (const { title, content } of navigation) { %>
+				<div>
+					<% if (typeof title === 'string') { %>
+					<div class="title"><%= title %></div>
+					<% } %>
+					<% for (const block of content) {
+						createNavLinksBlock(block);
+					} %>
+				</div>
+				<% } %>
+			</nav>
+			<div class="article">
+				<%- $page.content %>
+			</div>
+			<div class="example">
+				123
+			</div>
+		</main>
+	</body>
+</html>
+
+<%
+function createNavLinksBlock ({ title, url, content }, depth = 0) {
+	if (typeof url === 'string') {
+		%> <a href="<%= url %>">
+			<%= title %>
+		</a> <%
+	}
+	else if (Array.isArray(content)) { %>
+		<div class="title-category">
+			<%= title %>
+		</div>
+		<div class="category-content" style="--depth:<%= depth + 1 %>">
+			<% for (const block of content) {
+				createNavLinksBlock(
+					block,
+					depth + 1,
+				);
+			} %>
+		</div>
+	<% }
+}
+%>
