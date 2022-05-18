@@ -118,11 +118,34 @@ const OPTIONS      = require('./gulpfile/options');
 	);
 }
 
+// ----- IMAGES -----
+{
+	task(
+		'images-clean',
+		() => MODULES.purgeFiles('../build/img/**/*'),
+	);
+	task(
+		'images-build',
+		() => pipeline(
+			src('../source/img/**/*'),
+			dest('../build/img'),
+		),
+	);
+	task(
+		'images',
+		series(
+			'images-clean',
+			'images-build',
+		),
+	);
+}
+
 task(
 	'build',
 	parallel(
 		'css',
 		'js',
+		'images',
 		series(
 			'md',
 			'html',
