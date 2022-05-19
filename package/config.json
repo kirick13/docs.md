@@ -14,5 +14,27 @@
 			"response_title": "Response"
 		}
 	},
+    "style": {
+        "highlight_theme": "atom-one-dark",
+        "colors": {
+			"parameters": {
+				"required": {
+					"border": "#c04b38",
+					"background": "#6d342d",
+					"font": "#fff"
+				},
+				"deprecated": {
+					"border": "#f6bb43",
+					"background": "#9e7b35",
+					"font": "#fff"
+				},
+				"experimental": {
+					"border": "#37bc9d",
+					"background": "#265c53",
+					"font": "#fff"
+				}
+			}
+        }
+    },
 	"navigation": []
 }

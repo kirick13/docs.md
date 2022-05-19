@@ -5,15 +5,15 @@
 			"content": [
 				{
 					"title": "Introduction",
-					"url": "/"
+					"url": "/index.html"
 				},
 				{
 					"title": "Getting started",
-					"url": "/getting-started"
+					"url": "/getting-started.html"
 				},
 				{
 					"title": "Change log",
-					"url": "/changelog"
+					"url": "/changelog.html"
 				}
 			]
 		},
@@ -21,23 +21,23 @@
 			"title": "Configuration",
 			"content": [
 				{
-					"title": "About",
-					"url": "/configuration/about"
+					"title": "General options",
+					"url": "/configuration/general.html"
 				},
 				{
 					"title": "Variables",
-					"url": "/configuration/variables"
+					"url": "/configuration/variables.html"
 				},
 				{
 					"title": "Navigation",
 					"content": [
 						{
 							"title": "Blocks",
-							"url": "/configuration/navigation/blocks"
+							"url": "/configuration/navigation/blocks.html"
 						},
 						{
 							"title": "Subcategories",
-							"url": "/configuration/navigation/subcategories"
+							"url": "/configuration/navigation/subcategories.html"
 						}
 					]
 				}
@@ -48,15 +48,15 @@
 			"content": [
 				{
 					"title": "Aside",
-					"url": "/elements/aside"
+					"url": "/elements/aside.html"
 				},
 				{
 					"title": "Parameters",
-					"url": "/elements/parameters"
+					"url": "/elements/parameters.html"
 				},
 				{
 					"title": "Code examples",
-					"url": "/elements/code-examples"
+					"url": "/elements/code-examples.html"
 				}
 			]
 		}

@@ -32,6 +32,16 @@
 			async
 			defer
 		></script>
+
+
+		<link
+			rel="preload"
+			as="style"
+			href="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/styles/<%= style.highlight_theme %>.css"
+			integrity="sha256-Qjf/ynzmqttDjEV+CmdbElxTS73aW4f0HzoUlWA7zJs="
+			crossorigin="anonymous"
+			onload="this.onload=null;this.rel='stylesheet'"
+			>
 	</head>
 	<body>
 		<header>
@@ -59,12 +69,16 @@
 					} %>
 				</div>
 				<% } %>
+				<div class="attribution">
+					Created with <a href="https://github.com/kirick13/docs.md">docs.md</a>.<br>
+					version <%= $package.version %>
+				</div>
 			</nav>
 			<div class="article">
 				<%- $page.content %>
 			</div>
 			<div class="example">
-				123
+				TODO: code examples
 			</div>
 		</main>
 	</body>

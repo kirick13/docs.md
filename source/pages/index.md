@@ -1,13 +1,10 @@
 
 # docs.md docs
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+`docs.md` is a simple documentation generator based on Markdown and EJS.
 
-<aside info>
-    Version 0.1.0-beta.1
-</aside>
+Just create some markdown files, launch our lightning-fast compiler and server compiled HTML files by any web-server, even by Python's `http.server`.
 
-| Code | Description |
-| --- | --- |
-| **1** | Authorization failed. |
-| **2** | User does not exists. |
+Extend your `.md` files using [EJS syntax](https://ejs.co) such as `import()` to include other `.md` files.
+
+To get started, visit [Getting started](/getting-started.html) page.
