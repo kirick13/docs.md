@@ -29,8 +29,6 @@ else {
 }
 
 function init () {
-	console.info('DOMContentLoaded!');
-
 	const { body } = document;
 
 	let is_nav_opened = false;

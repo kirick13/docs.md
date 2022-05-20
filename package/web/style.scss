@@ -1,6 +1,14 @@
 
-$media_xs: 1024px;
-$media_s: 1160px;
+// nav collapsed, code below the article
+$media_mobile_max: 768px;
+// between these variables:
+// nav visible, code below the article
+$media_tablet_max: 1024px;
+// between these variables:
+// with code examples: nav collapsed, code on the right
+// without code examples: maxwidth 950, nav visible
+$media_laptop_max: 1280px;
+// normal look
 
 :root {
 	--width: 1000px;
@@ -55,15 +63,15 @@ table {
 	// width: var(--width);
 	max-width: 1750px;
 
-	@at-root body._nocode & {
-		// 0 ... 1280
-		@media (max-width: $media_s) {
-			max-width: 800px;
-		}
+	// only on tablets
+	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
+		max-width: 900px;
+	}
 
-		// 1280 ... +inf
-		@media (min-width: $media_s) {
-			max-width: 950px;
+	@at-root body._nocode & {
+		// on laptops & desktops
+		@media (min-width: ($media_tablet_max + 1)) {
+			max-width: 900px;
 		}
 	}
 }
@@ -142,9 +150,15 @@ header {
 			}
 		}
 
-		// 0 ... 1280
-		@media (max-width: $media_s) {
+		// on phones
+		@media (max-width: $media_mobile_max) {
 			display: flex;
+		}
+		@at-root body:not(._nocode) & {
+			// only on laptops
+			@media (min-width: ($media_tablet_max + 1)) and (max-width: $media_laptop_max) {
+				display: flex;
+			}
 		}
 	}
 
@@ -164,19 +178,12 @@ header {
 
 main {
 	display: grid;
-	grid-template-columns: 14em 1.33fr minmax(30em, 1fr);
+	grid-template-columns: 14em 1.33fr minmax(26em, 1fr);
 	grid-gap: var(--gap);
 	margin-bottom: var(--margin) !important;
 
-	@at-root body._nocode & {
-		// 1280 ... +inf
-		@media (min-width: $media_s) {
-			grid-template-columns: 14em 1fr;
-		}
-	}
-
-	// 0 ... 1024
-	@media (max-width: $media_xs) {
+	// only on phones
+	@media (max-width: $media_mobile_max) {
 		display: block;
 
 		.example {
@@ -184,17 +191,47 @@ main {
 		}
 	}
 
-	// 1024 ... 1280
-	@media (min-width: $media_xs) and (max-width: $media_s) {
-		grid-template-columns: 1.33fr minmax(30em, 1fr);
+	// only on tablets
+	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
+		// grid-row-gap: 0;
+		grid-template-columns: 14em 1fr;
+		grid-template-areas: "nav article" ". examples";
 	}
 
 	@at-root body._nocode & {
-		// 1024 ... 1280
-		@media (min-width: $media_xs) and (max-width: $media_s) {
-			display: block;
+		// on laptops and desktops
+		@media (min-width: ($media_tablet_max + 1)) {
+			grid-template-columns: 14em 1fr;
 		}
 	}
+
+	@at-root body:not(._nocode) & {
+		// only on laptops
+		@media (min-width: ($media_tablet_max + 1)) and (max-width: $media_laptop_max) {
+			grid-template-columns: 1.33fr minmax(26em, 1fr);
+		}
+	}
+
+	// 0 ... 1024
+	// @media (max-width: $media_tablet_max) {
+	// 	display: block;
+
+	// 	.example {
+	// 		margin-top: var(--gap);
+	// 	}
+	// }
+
+	// 1024 ... 1280
+	// @media (min-width: $media_tablet_max) and (max-width: $media_laptop_max) {
+	// 	grid-template-columns: 1.33fr minmax(26em, 1fr);
+	// }
+
+	// @at-root body._nocode & {
+	// 	// 1024 ... 1280
+	// 	@media (min-width: $media_tablet_max) and (max-width: $media_laptop_max) {
+	// 		display: block;
+	// 	}
+	// }
 }
 
 nav {
@@ -256,8 +293,12 @@ nav {
 		}
 	}
 
-	// 0 ... 1280
-	@media (max-width: $media_s) {
+	@at-root body._nav_opened & {
+		left: 0px !important;
+		box-shadow: 0 0 5em #000;
+	}
+
+	@mixin nav-collapsed {
 		--nav-width: calc(14em + 2 * var(--gap));
 
 		position: fixed;
@@ -269,15 +310,21 @@ nav {
 		z-index: 2;
 		transition: left .15s ease;
 
-		@at-root body._nav_opened & {
-			left: 0;
-			box-shadow: 0 0 5em #000;
-		}
-
 		.body {
 			padding: var(--margin) var(--gap);
 			max-height: calc(100% - 61px - 2 * var(--margin));
 			overflow: scroll;
+		}
+	}
+
+	// on phones
+	@media (max-width: $media_mobile_max) {
+		@include nav-collapsed;
+	}
+	@at-root body:not(._nocode) & {
+		// only on laptops
+		@media (min-width: ($media_tablet_max + 1)) and (max-width: $media_laptop_max) {
+			@include nav-collapsed;
 		}
 	}
 }
@@ -536,11 +583,19 @@ nav {
 }
 
 .example {
+	// only on tablets
+	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
+		grid-area: examples;
+	}
+
 	h1 {
 		margin-top: 0;
-		// 1024 ... +inf
-		@media (min-width: 1024px) {
-			display: none;
+
+		@at-root body:not(._nocode) & {
+			// only on laptops
+			@media (min-width: ($media_tablet_max + 1)) and (max-width: $media_laptop_max) {
+				display: none;
+			}
 		}
 	}
 
