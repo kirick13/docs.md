@@ -1,4 +1,9 @@
 
+<%
+	const { code_examples } = $page;
+	const has_code_examples = code_examples.request || code_examples.other.length > 0;
+%>
+
 <!doctype html>
 
 <html>
@@ -44,7 +49,7 @@
 			onload="this.onload=null;this.rel='stylesheet'"
 			>
 	</head>
-	<body style="display:none">
+	<body class="<%= has_code_examples ? '' : '_nocode' %> " style="display:none">
 		<header>
 			<div class="widther">
 				<div class="burger">
@@ -85,20 +90,22 @@
 			<div class="article">
 				<%- $page.content %>
 			</div>
-			<div class="example">
+			<div
+				class="example"
+				<%- has_code_examples ? '' : 'hidden' %>
+				>
 				<h1>Examples</h1>
-				<% const { request, other } = $page.code_examples; %>
-				<% if (request) { %>
+				<% if (code_examples.request) { %>
 				<div class="_request">
-					<div class="title <%= request.is_title_monospace ? '_monospace' : '' %>">
-						<%- request.title ?? 'Request' %>
+					<div class="title <%= code_examples.request.is_title_monospace ? '_monospace' : '' %>">
+						<%- code_examples.request.title ?? 'Request' %>
 					</div>
-					<% for (const { content } of request.snippets) { %>
+					<% for (const { content } of code_examples.request.snippets) { %>
 						<%- content %>
 					<% } %>
 				</div>
 				<% } %>
-				<% for (const { title, snippets } of other) { %>
+				<% for (const { title, snippets } of code_examples.other) { %>
 					<% for (const { subtitle, content } of snippets) { %>
 					<div>
 						<div class="title">
