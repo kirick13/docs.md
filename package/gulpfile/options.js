@@ -52,17 +52,24 @@ exports.SCSS = {
 			);
 
 			if (typeof value === 'string') {
-				if (value.startsWith('#')) {
-					return new SassColor(
-						parseHexColor(value),
-					);
-				}
-				else {
-					return new SassString(value);
-				}
+				return new SassString(value);
 			}
 			else if (typeof value === 'number') {
 				return new SassNumber(value);
+			}
+
+			return sassNull;
+		},
+		'getConfigColor($path)': function ([ path ]) {
+			const value = get(
+				CONFIG,
+				path.assertString('path').text,
+			);
+
+			if (typeof value === 'string' && value.startsWith('#')) {
+				return new SassColor(
+					parseHexColor(value),
+				);
 			}
 
 			return sassNull;

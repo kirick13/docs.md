@@ -143,6 +143,17 @@ modules.define(
 				// const $ = modules.cheerio.load(page_contents);
 				// console.log($('body').children().html());
 
+				let code_examples = { other: [] };
+				try {
+					code_examples = require(
+						file.path.replace(
+							/\.html$/,
+							'.json',
+						),
+					);
+				}
+				catch {}
+
 				file.contents = Buffer.from(
 					ejs.render(
 						html_source,
@@ -153,6 +164,7 @@ modules.define(
 								$page: {
 									title: page_title,
 									content: page_contents,
+									code_examples,
 								},
 							},
 						),
@@ -179,6 +191,7 @@ modules.define(
 		const markdownIt = require('markdown-it');
 
 		const REGEXP_PARAMETER_DEFINITION = /^([^:]+):\s([^[]+)(?:\s\[(REQUIRED|DEPRECATED|EXPERIMENTAL)])*$/;
+		const REGEXP_HTTP_METHOD = /^(GET|POST|PUT|PATCH|DELETE|OPTIONS)\s+/;
 
 		ejs.cache = new LRU(1e3);
 
@@ -212,7 +225,7 @@ modules.define(
 			{
 				ordered: false,
 			},
-			async (file, callback) => {
+			async function (file, callback) {
 				let contents = file.contents.toString();
 
 				contents = ejs.render(
@@ -228,7 +241,10 @@ modules.define(
 				contents = markdown.render(contents);
 
 				const { document } = new JSDOM(contents).window;
-				for (const el of document.querySelector('body').childNodes) {
+				const elements = [ ...document.querySelector('body').childNodes ];
+				for (let index = 0; index < elements.length; index++) {
+					const el = elements[index];
+
 					if (
 						'P' === el.tagName
 						&& el.textContent.startsWith('<<< PARAMETERS')
@@ -269,7 +285,8 @@ modules.define(
 
 							let note;
 							if (data[data.length - 1].startsWith('Note: ')) {
-								note = data.pop();
+								note = data.pop().slice(6);
+								note = note[0].toUpperCase() + note.slice(1);
 							}
 
 							for (const line of data) {
@@ -285,11 +302,115 @@ modules.define(
 
 						el.replaceWith(el_parameters);
 					}
+					else if (
+						'H1' === el.tagName
+						&& 'MARK: Examples' === el.textContent
+					) {
+						const data = {
+							request: undefined,
+							other: [],
+						};
+
+						const context = {
+							section: null,
+							snippet: null,
+						};
+
+						for (
+							let index_examples = 0;
+							(index + index_examples) < elements.length;
+							index++, index_examples++
+						) {
+							const el_this = elements[index + index_examples];
+
+							switch (el_this.tagName) {
+								case 'H2': {
+									const is_request = 'request' === el_this.textContent.toLowerCase();
+
+									context.section = {
+										is_request,
+										title: is_request ? null : el_this.textContent,
+										snippets: [],
+									};
+									context.snippet = null;
+
+									if (is_request) {
+										data.request = context.section;
+									}
+									else {
+										data.other.push(
+											context.section,
+										);
+									}
+								} break;
+								case 'P': {
+									if (context.section.is_request) {
+										if (
+											null === context.section.title
+											&& context.section.snippets.length === 0
+										) {
+											let html = el_this.innerHTML;
+
+											if (REGEXP_HTTP_METHOD.test(html)) {
+												context.section.is_title_monospace = true;
+
+												html = html.replace(
+													REGEXP_HTTP_METHOD,
+													'<span class="_method">$1</span>&nbsp;',
+												);
+											}
+
+											context.section.title = html;
+										}
+									}
+									else {
+										context.snippet = {
+											subtitle: el_this.innerHTML,
+										};
+										context.section.snippets.push(context.snippet);
+									}
+								} break;
+								case 'PRE': {
+									if (context.section.is_request) {
+										context.section.snippets.push({
+											content: el_this.outerHTML,
+										});
+									}
+									else {
+										if (context.snippet) {
+											context.snippet.content = el_this.outerHTML;
+										}
+										else {
+											context.section.snippets.push({
+												content: el_this.outerHTML,
+											});
+										}
+									}
+								} break;
+								// no default
+							}
+
+							el_this.remove();
+						}
+
+						// console.log('data', require('util').inspect(data, { depth: 10, colors: true }));
+
+						const file_code_examples = file.clone();
+						file_code_examples.path = file_code_examples.path.replace(/\.md$/, '.json');
+						file_code_examples.contents = Buffer.from(
+							JSON.stringify(data),
+						);
+
+						this.push(file_code_examples);
+
+						el.remove();
+					}
 				}
 
-				contents = document.querySelector('body').innerHTML;
+				contents = document.querySelector('body').innerHTML.trim();
 
 				file.contents = Buffer.from(contents);
+				file.path = file.path.replace(/\.md$/, '.html');
 
 				callback(null, file);
 			},

@@ -78,7 +78,33 @@
 				<%- $page.content %>
 			</div>
 			<div class="example">
-				TODO: code examples
+				<% const { request, other } = $page.code_examples; %>
+				<% if (request) { %>
+				<div class="_request">
+					<div class="title <%= request.is_title_monospace ? '_monospace' : '' %>">
+						<%- request.title ?? 'Request' %>
+					</div>
+					<% for (const { content } of request.snippets) { %>
+						<%- content %>
+					<% } %>
+				</div>
+				<% } %>
+				<% for (const { title, snippets } of other) { %>
+					<% for (const { subtitle, content } of snippets) { %>
+					<div>
+						<div class="title">
+							<%- title %>
+							<% if (subtitle) { %>
+							<small>
+								<%- subtitle %>
+							</small>
+							<% } %>
+						</div>
+						<%- content %>
+					</div>
+					<% } %>
+				</div>
+				<% } %>
 			</div>
 		</main>
 	</body>

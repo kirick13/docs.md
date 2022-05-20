@@ -1,7 +1,7 @@
 
 # Parameters
 
-`docs.md` was created to build an API documentation in the first place. Because of this, we have Parameters extension to Markdown.
+`docs.md` was created to build an API documentation in the first place. Because of this it has Parameters extension to Markdown.
 
 ## How it looks
 
@@ -16,8 +16,8 @@ Note: it can contain UTF-16 characters.
 <<<
 type: string? = "short" [EXPERIMENTAL]
 How much information you want to get:
-`short` - only user's ID and display name;
-`full` - complete information about the user.
+`short` — only user's ID and display name;
+`full` — complete information about the user.
 <<<
 ```
 
@@ -27,24 +27,24 @@ Will result to this:
 user_id: number [REQUIRED]
 ID of the user.
 <<<
-user_name: string
+user_name: string? [DEPRECATED]
 Display name of the user.
 Note: it can contain UTF-16 characters.
 <<<
 type: string? = "short" [EXPERIMENTAL]
 How much information you want to get:
-`short` - only user's ID and display name;
-`full` - complete information about the user.
+`short` — only user's ID and display name;
+`full` — complete information about the user.
 <<<
 
 ## Syntax
 
 Parameters are divided by `<<<`.
 
-Each parameter block must start from a line with parameter definition:
+Each parameter block must start with a line contains parameter definition:
 
-- **name** is located before first `:`;
-- **marks** are enclosed with `[]` and can be one of the following:
+- **name** is located before the first `:`;
+- **mark** is enclosed with `[]` and can be one of the following:
   - `REQUIRED`;
   - `DEPRECATED`;
   - `EXPERIMENTAL`;

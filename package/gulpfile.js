@@ -100,12 +100,6 @@ const OPTIONS      = require('./gulpfile/options');
 		() => pipeline(
 			src('../source/pages/**/*.md'),
 			MODULES.markdown(),
-			MODULES.htmlmin(
-				OPTIONS.HTMLMIN,
-			),
-			MODULES.rename({
-				extname: '.html',
-			}),
 			dest('../pre-build'),
 		),
 	);

@@ -19,7 +19,7 @@ You can create that block using plain HTML code inside your Markdown:
 </aside>
 ```
 
-By default, infos doesn't contain a title. You can customize that title using the `vars.aside.info` [configuration variable](/configuration/variables.html).
+By default, infos don't contain a title. You can customize that title using the `vars.aside.info` [configuration variable](/configuration/variables.html).
 
 ### Warning
 
