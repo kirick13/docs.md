@@ -3,7 +3,7 @@
 
 `docs.md` can show your code examples on the right side of the page. Examples section starts with `MARK: Examples` top-level header.
 
-You can see result on the right.
+You can see result on the right (or at the end of the page if you are on small screen).
 
 ````markdown
 # MARK: Examples
@@ -51,11 +51,11 @@ Put a paragraph after `Request` header containing an API endpoint or any other i
 
 Put multiple code snippets one after another inside `Request` section. You will see only one code snippet at the time, but there will be a selector to choose the language.
 
-## Response syntax
+## Other blocks syntax
 
-You can put miltiple `Response` sections and name them whatever you want. That title will be a title of code snippet.
+You can put miltiple sections and name them whatever you want (e.g. `Response`). That title will be a title of code snippet.
 
-Code snippets come alone or with a paragraph before. If there is a paragraph before, it will become a subtitle of response code snippet.
+Code snippets come alone or with a paragraph before. If there is a paragraph before, it will become a subtitle of response code snippet. All code snippets will be shown at once.
 
 # MARK: Examples
 

@@ -9,6 +9,8 @@
 			content="width=device-width, initial-scale=1.0"
 			>
 
+		<style>:root,body{background:#1b1c21}</style>
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -18,7 +20,7 @@
 			rel="preload"
 			as="style"
 			href="/css/style.css"
-			onload="this.onload=null;this.rel='stylesheet'"
+			onload="this.onload=null;this.rel='stylesheet';document.body.style.display=''"
 			>
 		<link
 			rel="preload"
@@ -33,7 +35,6 @@
 			defer
 		></script>
 
-
 		<link
 			rel="preload"
 			as="style"
@@ -43,9 +44,14 @@
 			onload="this.onload=null;this.rel='stylesheet'"
 			>
 	</head>
-	<body>
+	<body style="display:none">
 		<header>
 			<div class="widther">
+				<div class="burger">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+						<path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/>
+					</svg>
+				</div>
 				<div class="logo">
 					<img
 						src="/img/logo.svg"
@@ -59,25 +65,28 @@
 		</header>
 		<main class="widther">
 			<nav>
-				<% for (const { title, content } of navigation) { %>
-				<div>
-					<% if (typeof title === 'string') { %>
-					<div class="title"><%= title %></div>
+				<div class="body">
+					<% for (const { title, content } of navigation) { %>
+					<div>
+						<% if (typeof title === 'string') { %>
+						<div class="title"><%= title %></div>
+						<% } %>
+						<% for (const block of content) {
+							createNavLinksBlock(block);
+						} %>
+					</div>
 					<% } %>
-					<% for (const block of content) {
-						createNavLinksBlock(block);
-					} %>
-				</div>
-				<% } %>
-				<div class="attribution">
-					Created with <a href="https://github.com/kirick13/docs.md">docs.md</a>.<br>
-					version <%= $package.version %>
+					<div class="attribution">
+						Created with <a href="https://github.com/kirick13/docs.md">docs.md</a>.<br>
+						version <%= $package.version %>
+					</div>
 				</div>
 			</nav>
 			<div class="article">
 				<%- $page.content %>
 			</div>
 			<div class="example">
+				<h1>Examples</h1>
 				<% const { request, other } = $page.code_examples; %>
 				<% if (request) { %>
 				<div class="_request">
