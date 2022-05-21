@@ -56,6 +56,10 @@ modules.require(
 	'transform',
 	'parallel-transform',
 );
+modules.require(
+	'compress',
+	'gulp-web-compress',
+);
 
 // ----- CSS -----
 modules.define(
@@ -112,6 +116,34 @@ modules.define(
 	},
 );
 
+// ----- JS -----
+modules.define(
+	'jsMinify',
+	() => {
+		const { minify } = require('terser');
+
+		return (options = {}) => modules.transform(
+			1_000_000,
+			{
+				ordered: false,
+			},
+			async (file, cb) => {
+				const result = await minify(
+					file.contents.toString(),
+					options,
+				);
+
+				file.contents = Buffer.from(result.code);
+
+				cb(
+					null,
+					file,
+				);
+			},
+		)
+	},
+);
+
 // ----- HTML -----
 modules.require(
 	'htmlmin',
@@ -126,6 +158,7 @@ modules.define(
 
 		const html_source = readFileSync('./web/template.html').toString();
 
+		const BUILD_ID = Math.random().toString(36).slice(2);
 		const REGEXP_TITLE = /^<h\d>([^<]*)<\/h\d>/;
 
 		return () => modules.transform(
@@ -160,6 +193,7 @@ modules.define(
 						Object.assign(
 							OPTIONS.CONFIG,
 							{
+								$build_id: BUILD_ID,
 								$package: require('../package.json'),
 								$page: {
 									title: page_title,

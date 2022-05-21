@@ -29,7 +29,11 @@ const OPTIONS      = require('./gulpfile/options');
 			}),
 			MODULES.autoprefixer(),
 			MODULES.cleanCSS(OPTIONS.CLEANCSS),
-			dest('../build/css/'),
+			dest('../build/css'),
+			MODULES.compress(
+				OPTIONS.COMPRESS,
+			),
+			dest('../build/css'),
 		),
 	);
 	task(
@@ -51,6 +55,11 @@ const OPTIONS      = require('./gulpfile/options');
 		'js-build',
 		() => pipeline(
 			src('./web/*.js'),
+			MODULES.jsMinify(),
+			dest('../build/js'),
+			MODULES.compress(
+				OPTIONS.COMPRESS,
+			),
 			dest('../build/js'),
 		),
 	);
@@ -77,7 +86,11 @@ const OPTIONS      = require('./gulpfile/options');
 			MODULES.htmlmin(
 				OPTIONS.HTMLMIN,
 			),
-			dest('../build/'),
+			dest('../build'),
+			MODULES.compress(
+				OPTIONS.COMPRESS,
+			),
+			dest('../build'),
 		),
 	);
 	task(

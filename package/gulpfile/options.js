@@ -43,6 +43,20 @@ const CONFIG = exports.CONFIG = merge(
 	require('../../source/config.json'),
 );
 
+exports.COMPRESS = {
+	types: [
+		'gz',
+		'br',
+	],
+	gzipOptions: {
+		level: 9,
+	},
+	brotliOptions: {
+		mode: 0,
+		quality: 11,
+	},
+};
+
 exports.SCSS = {
 	functions: {
 		'getConfig($path)': function ([ path ]) {
