@@ -17,7 +17,7 @@ Text [variables](/configuration/variables.html) to customize texts and titles on
 style: object
 [Colors](/configuration/stylization.html) of you website.
 <<<
-nav: array
+navigation: array
 Configuration of [navigation bar](/elements/navigation/blocks.html).
 <<<
 

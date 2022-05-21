@@ -1,5 +1,9 @@
 {
 	"title": "docs.md",
+    "icons": {
+        "favicon": "/img/favicon.png",
+        "logo": "/img/logo.svg"
+    },
     "vars": {
 		"aside": {
 			"warning": "WARNING"
