@@ -187,6 +187,19 @@ modules.define(
 				}
 				catch {}
 
+				const page_paths = new Set();
+				{
+					const path = '/' + file.path.split('/pre-build/')[1];
+
+					page_paths.add(path);
+					page_paths.add(
+						path.replace(/\.html$/, ''),
+					);
+					page_paths.add(
+						path.replace(/\/index\.html$/, '/'),
+					);
+				}
+
 				file.contents = Buffer.from(
 					ejs.render(
 						html_source,
@@ -197,6 +210,7 @@ modules.define(
 								$package: require('../package.json'),
 								$page: {
 									title: page_title,
+									paths: page_paths,
 									content: page_contents,
 									code_examples,
 								},

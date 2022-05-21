@@ -9,9 +9,8 @@
 			"deprecated": "deprecated",
 			"experimental": "experimental"
 		},
-		"code": {
-			"request_title": "Request",
-			"response_title": "Response"
+		"code_example": {
+			"title_request": "Request"
 		}
 	},
     "style": {

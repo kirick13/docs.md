@@ -15,7 +15,7 @@ $media_laptop_max: 1280px;
 	--color-bg: #1b1c21;
 	--color-block-bg: #26272b;
 	--color-block-bg-selection: #35363b;
-	--color-border: #4a4c54;
+	--color-border: #3c3d44; // #4a4c54;
 	--color-font: #b9bac1;
 	--color-font-2: #757884;
 	--color-link: #3bafda;
@@ -65,13 +65,13 @@ table {
 
 	// only on tablets
 	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
-		max-width: 900px;
+		max-width: 1024px;
 	}
 
 	@at-root body._nocode & {
 		// on laptops & desktops
 		@media (min-width: ($media_tablet_max + 1)) {
-			max-width: 900px;
+			max-width: 1024px;
 		}
 	}
 }
@@ -86,8 +86,8 @@ a {
 		text-decoration: none;
 
 		&,
-		code:not(._) {
-			border-color: var(--color-link);
+		code {
+			border-color: var(--color-link) !important;
 		}
 	}
 
@@ -104,8 +104,8 @@ a {
 		}
 	}
 
-	code:not(._) {
-		border-color: var(--color-link-border);
+	code {
+		border-color: var(--color-link-border) !important;
 		color: var(--color-link);
 		transition: border-color .15s ease;
 	}
@@ -243,6 +243,21 @@ nav {
 			&:hover {
 				background-color: var(--color-block-bg-selection);
 			}
+
+			&._selected {
+				position: relative;
+				background-color: #253246;
+
+				&::before {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: .2em;
+					height: 100%;
+					background-color: #4173b7;
+				}
+			}
 		}
 	}
 
@@ -333,15 +348,18 @@ nav {
 		margin-bottom: .5em;
 	}
 
-	:not(pre) code {
-		border: 1px solid var(--color-border);
+	code:not(pre code) {
+		border: 1px solid;
 		border-radius: var(--border-radius);
 		padding: .05em .35em;
 		background-color: var(--color-block-bg);
 		font-family: var(--font-monospace);
 		font-size: .95em;
-		color: #f7fafc;
 		white-space: nowrap;
+	}
+	code:not(a code) {
+		border-color: var(--color-border);
+		color: #f7fafc;
 	}
 
 	pre {
@@ -575,6 +593,11 @@ nav {
 			@media (min-width: ($media_tablet_max + 1)) and (max-width: $media_laptop_max) {
 				display: none;
 			}
+		}
+
+		// only on desktops
+		@media (min-width: ($media_laptop_max + 1)) {
+			display: none;
 		}
 	}
 

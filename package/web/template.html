@@ -98,7 +98,7 @@
 				<% if (code_examples.request) { %>
 				<div class="_request">
 					<div class="title <%= code_examples.request.is_title_monospace ? '_monospace' : '' %>">
-						<%- code_examples.request.title ?? 'Request' %>
+						<%- code_examples.request.title ?? vars.code_example.title_request %>
 					</div>
 					<% for (const { content } of code_examples.request.snippets) { %>
 						<%- content %>
@@ -129,7 +129,7 @@
 <%
 function createNavLinksBlock ({ title, url, content }, depth = 0) {
 	if (typeof url === 'string') {
-		%> <a href="<%= url %>">
+		%> <a href="<%= url %>" <%- $page.paths.has(url) ? ' class="_selected"' : '' %>>
 			<%= title %>
 		</a> <%
 	}
