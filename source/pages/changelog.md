@@ -7,4 +7,6 @@ That website is on version **<%= $package.version %>**.
 
 </aside>
 
-That project has no releases so far.
+## 0.1.0 &nbsp; <small>21 May 2022</small>
+
+Initial release
