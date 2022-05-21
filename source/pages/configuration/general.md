@@ -18,7 +18,7 @@ style: object
 [Colors](/configuration/stylization.html) of you website.
 <<<
 navigation: array
-Configuration of [navigation bar](/elements/navigation/blocks.html).
+Configuration of [navigation bar](/navigation/blocks.html).
 <<<
 
 # MARK: Examples
