@@ -168,6 +168,10 @@ header {
 		display: flex;
 		align-items: center;
 
+		img {
+			height: 35px;
+		}
+
 		div {
 			margin-left: var(--margin-half);
 			font-size: 1.2em;
@@ -195,7 +199,7 @@ main {
 	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
 		// grid-row-gap: 0;
 		grid-template-columns: 14em 1fr;
-		grid-template-areas: "nav article" ". examples";
+		grid-template-areas: "nav article" "nav examples";
 	}
 
 	@at-root body._nocode & {
@@ -214,6 +218,11 @@ main {
 }
 
 nav {
+	// only on tablets
+	@media (min-width: ($media_mobile_max + 1)) and (max-width: $media_tablet_max) {
+		grid-area: nav;
+	}
+
 	.body > div:not(.attribution) {
 		border-radius: var(--border-radius);
 		padding: var(--margin-half) 0;

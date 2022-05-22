@@ -2,35 +2,37 @@
 #!/bin/sh
 
 if [ -x "$(command -v node)" ]; then
-	echo '[DOCS.MD BUILD] found Node.js'
-
 	cd package
 
+	echo '[DOCS.MD BUILD] found Node.js'
+	echo
 	echo '[DOCS.MD BUILD] checking/installing dependencies...'
-	npm install 1> /dev/null
-
+	echo
+	npm install
+	echo
 	echo '[DOCS.MD BUILD] running build...'
-	npx gulp build 1> /dev/null
-
+	echo
+	npx gulp build
+	echo
 	echo '[DOCS.MD BUILD] complete.'
 elif [ -x "$(command -v docker)" ]; then
 	echo '[DOCS.MD BUILD] found Docker'
-
+	echo
 	echo '[DOCS.MD BUILD] checking/creating an image...'
+	echo
 	docker build \
 		-f $(pwd)/Dockerfile \
 		-t docs.md \
-		. \
-		1> /dev/null
-
+		.
+	echo
 	echo '[DOCS.MD BUILD] running build...'
+	echo
 	docker run \
 		--rm \
 		--name docsmd \
 		-v $(pwd)/source:/var/docs.md/source \
 		-v $(pwd)/build:/var/docs.md/build \
-		docs.md \
-		1> /dev/null
-
+		docs.md
+	echo
 	echo '[DOCS.MD BUILD] complete.'
 fi

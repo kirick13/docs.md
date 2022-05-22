@@ -76,7 +76,11 @@ const OPTIONS      = require('./gulpfile/options');
 {
 	task(
 		'html-clean',
-		() => MODULES.purgeFiles('../build/**/*.html'),
+		() => MODULES.purgeFiles([
+			'../build/**/*.html',
+			'../build/**/*.html.gz',
+			'../build/**/*.html.br',
+		]),
 	);
 	task(
 		'html-build',

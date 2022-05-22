@@ -300,8 +300,8 @@ modules.define(
 						const el_parameters = document.createElement('div');
 						el_parameters.classList.add('parameters');
 
-						for (const parameters_raw of el.innerHTML.split(' PARAMETERS\n')[1].split(/\n(?:&lt;){3}(?:\n|$)/)) {
-							if (parameters_raw.length === 0) {
+						for (const parameters_raw of el.innerHTML.split(' PARAMETERS\n')[1].split(/\n(?:&lt;|<){3}(?:\n|$)/)) {
+							if (parameters_raw.length === 0 || parameters_raw.startsWith('&lt;&lt;&lt;')) {
 								continue;
 							}
 
@@ -338,7 +338,9 @@ modules.define(
 							}
 
 							for (const line of data) {
-								el_parameter.innerHTML += `<p>${line}</p>`;
+								if (line.startsWith('&lt;&lt;&lt;') !== true) {
+									el_parameter.innerHTML += `<p>${line}</p>`;
+								}
 							}
 
 							if (note) {

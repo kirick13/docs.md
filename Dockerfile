@@ -1,5 +1,5 @@
 
-FROM node:18.2.0-alpine
+FROM node:18.2.0
 
 COPY package /var/docs.md/package
 
