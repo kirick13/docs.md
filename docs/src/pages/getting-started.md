@@ -32,13 +32,13 @@ Run `kirickme/docs.md` Docker image to compile your documentation website. Bind 
 docker run --rm \
            -v $PWD/source:/var/docs.md/source \
            -v $PWD/build:/var/docs.md/build \
-           kirickme/docs.md
+           kirickme/docs.md:<%= $package.version %>
 ```
 
 Or build a Docker image with your own docs:
 
 ```dockerfile
-FROM kirickme/docs.md as builder
+FROM kirickme/docs.md:<%= $package.version %> as builder
 COPY source /var/docs.md/source
 RUN  docs.md
 
