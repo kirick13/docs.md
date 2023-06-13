@@ -3,10 +3,10 @@
 
 ## Building
 
-- Replace `gulp-web-compress` with Node.js' `zlib`.
-  - Revert `node` Docker image to `node-alpine`.
-- Remove gulp, replace it with node.js scripts to achieve better performace.
-- Publish docker image to Docker Hub.
+- Create a builder to replace Gulp,
+  - remove as many dependencies as possible to reduce image size.
+- Compile own CSS/JS files during Docker image build.
+- Support for custom CSS files.
 
 # UI
 

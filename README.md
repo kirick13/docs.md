@@ -69,8 +69,4 @@ Your docs will look beautiful on all devices.
 
 # Roadmap
 
-- Create a builder to replace Gulp
-  - Ditch as many dependencies as possible to reduce image size
-- Research if Node.js can be replaced with Bun
-- Compile own CSS/JS files during Docker image build
-- Support for custom CSS files
+Look at our [roadmap](https://docs-md.kirick.me/roadmap.html) to know what we are working on.
