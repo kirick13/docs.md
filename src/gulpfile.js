@@ -11,15 +11,11 @@ const { pipeline } = require('./gulpfile/fns');
 const MODULES      = require('./gulpfile/modules');
 const OPTIONS      = require('./gulpfile/options');
 
-const PATH_SOURCE = '/var/docs.md/source';
-const PATH_BUILD = '/var/docs.md/build';
-const PATH_PREBUILD = '/tmp/pre-build';
-
 // ----- CSS -----
 {
 	task(
 		'css-clean',
-		() => MODULES.purgeFiles(`${PATH_BUILD}/css/**/*`),
+		() => MODULES.purgeFiles(`${OPTIONS.PATH_BUILD}/css/**/*`),
 	);
 	task(
 		'css-build',
@@ -33,11 +29,11 @@ const PATH_PREBUILD = '/tmp/pre-build';
 			}),
 			MODULES.autoprefixer(),
 			MODULES.cleanCSS(OPTIONS.CLEANCSS),
-			dest(`${PATH_BUILD}/css`),
+			dest(`${OPTIONS.PATH_BUILD}/css`),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest(`${PATH_BUILD}/css`),
+			dest(`${OPTIONS.PATH_BUILD}/css`),
 		),
 	);
 	task(
@@ -53,18 +49,18 @@ const PATH_PREBUILD = '/tmp/pre-build';
 {
 	task(
 		'js-clean',
-		() => MODULES.purgeFiles(`${PATH_BUILD}/js/**/*`),
+		() => MODULES.purgeFiles(`${OPTIONS.PATH_BUILD}/js/**/*`),
 	);
 	task(
 		'js-build',
 		() => pipeline(
 			src('./web/*.js'),
 			MODULES.jsMinify(),
-			dest(`${PATH_BUILD}/js`),
+			dest(`${OPTIONS.PATH_BUILD}/js`),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest(`${PATH_BUILD}/js`),
+			dest(`${OPTIONS.PATH_BUILD}/js`),
 		),
 	);
 	task(
@@ -81,24 +77,24 @@ const PATH_PREBUILD = '/tmp/pre-build';
 	task(
 		'html-clean',
 		() => MODULES.purgeFiles([
-			`${PATH_BUILD}/**/*.html`,
-			`${PATH_BUILD}/**/*.html.gz`,
-			`${PATH_BUILD}/**/*.html.br`,
+			`${OPTIONS.PATH_BUILD}/**/*.html`,
+			`${OPTIONS.PATH_BUILD}/**/*.html.gz`,
+			`${OPTIONS.PATH_BUILD}/**/*.html.br`,
 		]),
 	);
 	task(
 		'html-build',
 		() => pipeline(
-			src(`${PATH_PREBUILD}/**/*.html`),
+			src(`${OPTIONS.PATH_PREBUILD}/**/*.html`),
 			MODULES.buildPages(),
 			MODULES.htmlmin(
 				OPTIONS.HTMLMIN,
 			),
-			dest(PATH_BUILD),
+			dest(OPTIONS.PATH_BUILD),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest(PATH_BUILD),
+			dest(OPTIONS.PATH_BUILD),
 		),
 	);
 	task(
@@ -114,14 +110,14 @@ const PATH_PREBUILD = '/tmp/pre-build';
 {
 	task(
 		'md-clean',
-		() => MODULES.purgeFiles(`${PATH_PREBUILD}/**/*`),
+		() => MODULES.purgeFiles(`${OPTIONS.PATH_PREBUILD}/**/*`),
 	);
 	task(
 		'md-build',
 		() => pipeline(
-			src(`${PATH_SOURCE}/pages/**/*.md`),
+			src(`${OPTIONS.PATH_SOURCE}/pages/**/*.md`),
 			MODULES.markdown(),
-			dest(PATH_PREBUILD),
+			dest(OPTIONS.PATH_PREBUILD),
 		),
 	);
 	task(
@@ -137,13 +133,13 @@ const PATH_PREBUILD = '/tmp/pre-build';
 {
 	task(
 		'images-clean',
-		() => MODULES.purgeFiles(`${PATH_BUILD}/img/**/*`),
+		() => MODULES.purgeFiles(`${OPTIONS.PATH_BUILD}/img/**/*`),
 	);
 	task(
 		'images-build',
 		() => pipeline(
-			src(`${PATH_SOURCE}/img/**/*`),
-			dest(`${PATH_BUILD}/img`),
+			src(`${OPTIONS.PATH_SOURCE}/img/**/*`),
+			dest(`${OPTIONS.PATH_BUILD}/img`),
 		),
 	);
 	task(

@@ -38,8 +38,12 @@ function parseHexColor (hex) {
 	throw new Error('Bad Hex');
 }
 
+const PATH_SOURCE = exports.PATH_SOURCE = '/var/docs.md/source';
+exports.PATH_BUILD = '/var/docs.md/build';
+exports.PATH_PREBUILD = '/tmp/pre-build';
+
 const CONFIG = exports.CONFIG = merge(
-	require('../config.json'),
+	require(`${PATH_SOURCE}/config.json`),
 	require('../config.json'),
 );
 
