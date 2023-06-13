@@ -1,5 +1,5 @@
 FROM kirickme/docs.md:0.2.0-beta.8 AS builder
-COPY . /var/docs.md/source
+COPY src /var/docs.md/source
 RUN  mkdir -p /var/docs.md/build \
      && /entrypoint.sh
 
