@@ -43,8 +43,9 @@ exports.PATH_BUILD = '/var/docs.md/build';
 exports.PATH_PREBUILD = '/tmp/pre-build';
 
 const CONFIG = exports.CONFIG = merge(
-	require(`${PATH_SOURCE}/config.json`),
+	{},
 	require('../config.json'),
+	require(`${PATH_SOURCE}/config.json`),
 );
 
 exports.COMPRESS = {
