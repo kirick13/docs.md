@@ -7,6 +7,10 @@ That website is on version **<%= $package.version %>**.
 
 </aside>
 
+## 0.2.1 &nbsp; <small>14 Jun 2023</small>
+
+Hotfix.
+
 ## 0.2.0 &nbsp; <small>13 Jun 2023</small>
 
 Minor refactor:
