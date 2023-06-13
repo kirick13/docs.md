@@ -1,6 +1,6 @@
 kind: Pod
 containers:
   main:
-    image: kirickme/docs.md-docs
+    image: $/docs.md-docs
     ports:
       - 80
