@@ -8,5 +8,5 @@ RUN     npm install --omit=dev \
 FROM    node:18.16.0-slim
 WORKDIR /app
 COPY    --from=builder /app .
-COPY    entrypoint.sh /entrypoint.sh
+COPY    entrypoint.sh /usr/local/bin/docs.md
 CMD     /entrypoint.sh
