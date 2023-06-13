@@ -3,7 +3,7 @@
 
 Docs generator based on Markdown and EJS.
 
-Read our [documentation](https://docs-md.onrender.com/index.html) and create your own [documentation website](https://docs-md.onrender.com/getting-started.html) in seconds.
+Read our [documentation](https://docs-md.kirick.me) and create your own [documentation website](https://docs-md.kirick.me/getting-started.html) in seconds.
 
 ## Features
 
@@ -42,7 +42,7 @@ You can use includes to not to write the same text twice. Or use any other [EJS 
 
 Are you tired of simple websites built with React, Webpack, much npm packages and tons of other JavaScript? **Forget about it.**
 
-`docs.md` will build your website with that [CSS file](https://docs-md.onrender.com/css/style.css) and that [JS file](https://docs-md.onrender.com/js/main.js). **That's all.**
+`docs.md` will build your website with that [CSS file](https://docs-md.kirick.me/css/style.css) and that [JS file](https://docs-md.kirick.me/js/main.js). **That's all.**
 
 ### Beautiful, responsive design
 
@@ -66,3 +66,7 @@ Your docs will look beautiful on all devices.
     </tr>
   </tbody>
 </table>
+
+# Roadmap
+
+Look at our [roadmap](https://docs-md.kirick.me/roadmap.html) to know what we are working on.
