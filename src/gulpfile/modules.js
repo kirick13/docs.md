@@ -203,19 +203,17 @@ modules.define(
 				file.contents = Buffer.from(
 					ejs.render(
 						html_source,
-						Object.assign(
-							OPTIONS.CONFIG,
-							{
-								$build_id: BUILD_ID,
-								$package: require('../package.json'),
-								$page: {
-									title: page_title,
-									paths: page_paths,
-									content: page_contents,
-									code_examples,
-								},
+						{
+							...structuredClone(OPTIONS.CONFIG),
+							$build_id: BUILD_ID,
+							$package: require('../package.json'),
+							$page: {
+								title: page_title,
+								paths: page_paths,
+								content: page_contents,
+								code_examples,
 							},
-						),
+						},
 						{
 							filename: file.path,
 						},
