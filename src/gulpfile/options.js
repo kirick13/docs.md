@@ -40,7 +40,7 @@ function parseHexColor (hex) {
 
 const CONFIG = exports.CONFIG = merge(
 	require('../config.json'),
-	require('../../source/config.json'),
+	require('../config.json'),
 );
 
 exports.COMPRESS = {

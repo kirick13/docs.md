@@ -1,10 +1,12 @@
+FROM    node:18.16.0 AS builder
+WORKDIR /app
+COPY    src .
+RUN     npm install --omit=dev \
+        && npx browserslist@latest --update-db \
+        && npm cache clean --force
 
-FROM node:18.2.0
-
-COPY package /var/docs.md/package
-
-WORKDIR /var/docs.md/package
-
-RUN npm install
-
-CMD npx gulp build
+FROM    node:18.16.0-slim
+WORKDIR /app
+COPY    --from=builder /app .
+COPY    entrypoint.sh /entrypoint.sh
+CMD     /entrypoint.sh

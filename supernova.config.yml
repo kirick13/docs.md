@@ -1,0 +1,10 @@
+steps:
+  - name: Build docker image for documentation
+    docker:
+      build:
+        file: docs/Dockerfile
+        context: docs
+        tag: kirickme/docs.md-docs:$DOCKER_TAG-$GIT_COMMIT_SHORT
+        platforms:
+          - linux/amd64
+          - linux/arm64

@@ -1,38 +1,23 @@
-
 #!/bin/sh
 
-if [ -x "$(command -v node)" ]; then
-	cd package
+DOCKER_IMAGE='kirickme/docs.md'
+DOCKER_TAG=$(jq -r '.version' src/package.json)
 
-	echo '[DOCS.MD BUILD] found Node.js'
-	echo
-	echo '[DOCS.MD BUILD] checking/installing dependencies...'
-	echo
-	npm install
-	echo
-	echo '[DOCS.MD BUILD] running build...'
-	echo
-	npx gulp build
-	echo
-	echo '[DOCS.MD BUILD] complete.'
-elif [ -x "$(command -v docker)" ]; then
-	echo '[DOCS.MD BUILD] found Docker'
-	echo
-	echo '[DOCS.MD BUILD] checking/creating an image...'
-	echo
-	docker build \
-		-f $(pwd)/Dockerfile \
-		-t docs.md \
-		.
-	echo
-	echo '[DOCS.MD BUILD] running build...'
-	echo
-	docker run \
-		--rm \
-		--name docsmd \
-		-v $(pwd)/source:/var/docs.md/source \
-		-v $(pwd)/build:/var/docs.md/build \
-		docs.md
-	echo
-	echo '[DOCS.MD BUILD] complete.'
+echo 'Building image '$DOCKER_IMAGE:$DOCKER_TAG'...'
+
+docker manifest inspect $DOCKER_IMAGE:$DOCKER_TAG >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    docker buildx create --name multibuilder >/dev/null 2>&1
+    docker buildx use multibuilder
+    docker buildx build --push \
+                        --platform linux/amd64,linux/arm64 \
+                        --tag $DOCKER_IMAGE:$DOCKER_TAG \
+                        .
+else
+    echo 'Image '$DOCKER_IMAGE:$DOCKER_TAG' already exists, building aborted.'
+    echo
 fi
+
+docker pull $DOCKER_IMAGE:$DOCKER_TAG
+echo
+docker image ls | grep $DOCKER_IMAGE

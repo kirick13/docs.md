@@ -11,11 +11,15 @@ const { pipeline } = require('./gulpfile/fns');
 const MODULES      = require('./gulpfile/modules');
 const OPTIONS      = require('./gulpfile/options');
 
+const PATH_SOURCE = '/var/docs.md/source';
+const PATH_BUILD = '/var/docs.md/build';
+const PATH_PREBUILD = '/tmp/pre-build';
+
 // ----- CSS -----
 {
 	task(
 		'css-clean',
-		() => MODULES.purgeFiles('../build/css/**/*'),
+		() => MODULES.purgeFiles(`${PATH_BUILD}/css/**/*`),
 	);
 	task(
 		'css-build',
@@ -29,11 +33,11 @@ const OPTIONS      = require('./gulpfile/options');
 			}),
 			MODULES.autoprefixer(),
 			MODULES.cleanCSS(OPTIONS.CLEANCSS),
-			dest('../build/css'),
+			dest(`${PATH_BUILD}/css`),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest('../build/css'),
+			dest(`${PATH_BUILD}/css`),
 		),
 	);
 	task(
@@ -49,18 +53,18 @@ const OPTIONS      = require('./gulpfile/options');
 {
 	task(
 		'js-clean',
-		() => MODULES.purgeFiles('../build/js/**/*'),
+		() => MODULES.purgeFiles(`${PATH_BUILD}/js/**/*`),
 	);
 	task(
 		'js-build',
 		() => pipeline(
 			src('./web/*.js'),
 			MODULES.jsMinify(),
-			dest('../build/js'),
+			dest(`${PATH_BUILD}/js`),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest('../build/js'),
+			dest(`${PATH_BUILD}/js`),
 		),
 	);
 	task(
@@ -77,24 +81,24 @@ const OPTIONS      = require('./gulpfile/options');
 	task(
 		'html-clean',
 		() => MODULES.purgeFiles([
-			'../build/**/*.html',
-			'../build/**/*.html.gz',
-			'../build/**/*.html.br',
+			`${PATH_BUILD}/**/*.html`,
+			`${PATH_BUILD}/**/*.html.gz`,
+			`${PATH_BUILD}/**/*.html.br`,
 		]),
 	);
 	task(
 		'html-build',
 		() => pipeline(
-			src('../pre-build/**/*.html'),
+			src(`${PATH_PREBUILD}/**/*.html`),
 			MODULES.buildPages(),
 			MODULES.htmlmin(
 				OPTIONS.HTMLMIN,
 			),
-			dest('../build'),
+			dest(PATH_BUILD),
 			MODULES.compress(
 				OPTIONS.COMPRESS,
 			),
-			dest('../build'),
+			dest(PATH_BUILD),
 		),
 	);
 	task(
@@ -110,14 +114,14 @@ const OPTIONS      = require('./gulpfile/options');
 {
 	task(
 		'md-clean',
-		() => MODULES.purgeFiles('../pre-build/**/*'),
+		() => MODULES.purgeFiles(`${PATH_PREBUILD}/**/*`),
 	);
 	task(
 		'md-build',
 		() => pipeline(
-			src('../source/pages/**/*.md'),
+			src(`${PATH_SOURCE}/pages/**/*.md`),
 			MODULES.markdown(),
-			dest('../pre-build'),
+			dest(PATH_PREBUILD),
 		),
 	);
 	task(
@@ -133,13 +137,13 @@ const OPTIONS      = require('./gulpfile/options');
 {
 	task(
 		'images-clean',
-		() => MODULES.purgeFiles('../build/img/**/*'),
+		() => MODULES.purgeFiles(`${PATH_BUILD}/img/**/*`),
 	);
 	task(
 		'images-build',
 		() => pipeline(
-			src('../source/img/**/*'),
-			dest('../build/img'),
+			src(`${PATH_SOURCE}/img/**/*`),
+			dest(`${PATH_BUILD}/img`),
 		),
 	);
 	task(
