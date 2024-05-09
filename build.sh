@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DOCKER_IMAGE='kirickme/docs.md'
-DOCKER_TAG=$(jq -r '.version' src/package.json)
+DOCKER_TAG=$(jq -r '.version' source/package.json)
 
 echo 'Building image '$DOCKER_IMAGE:$DOCKER_TAG'...'
 
