@@ -1,5 +1,5 @@
 FROM kirickme/docs.md:0.3.0 AS builder
-COPY src /var/docs.md/source
+COPY source /var/docs.md/source
 RUN  docs.md
 
 FROM nginx:1.25.0-alpine
