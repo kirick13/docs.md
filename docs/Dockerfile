@@ -1,4 +1,4 @@
-FROM kirickme/docs.md:0.3.0 AS builder
+FROM kirickme/docs.md:0.3.0-beta.2 AS builder
 COPY source /var/docs.md/source
 RUN  docs.md
 

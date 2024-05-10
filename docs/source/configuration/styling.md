@@ -23,4 +23,4 @@ All colors are set by specifying just three RGB values (like `13 10 94`). There 
 | CSS custom property | Description |
 | --- | --- |
 | `--radius` | Border radius of the elements. |
-| `--transition-diration` | Duration of the transitions. |
+| `--transition-duration` | Duration of the transitions. |

@@ -7,7 +7,7 @@ That website is on version **<%= locals.docsmd.version %>**.
 
 </aside>
 
-## 0.3.0 &nbsp; <small>8 May 2024</small>
+## 0.3.0 &nbsp; <small>10 May 2024</small>
 
 Major update with breaking changes:
 

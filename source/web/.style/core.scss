@@ -1,4 +1,6 @@
 
+@use './consts.scss' as consts;
+
 :root {
 	--width: 1000px;
 
@@ -24,6 +26,10 @@
 
 	--spacing-main: var(--spacing-4xl);
 
+	@media screen and (max-width: (consts.$screen_bigphone_min - 1px)) {
+		--spacing-main: var(--spacing-2xl);
+	}
+
 	--radius: 8px;
 
 	--transition-diration: .2s;
@@ -48,6 +54,10 @@ table {
 	color: rgb(var(--rgb-font));
 	font-size: 16px;
 	font-family: var(--font, ''), var(--font-default);
+
+	@media screen and (max-width: (consts.$screen_bigphone_min - 1px)) {
+		font-size: 15px;
+	}
 }
 
 a {
@@ -90,9 +100,10 @@ main {
 	flex-direction: row;
 	position: relative;
 
-	.article,
-	.example {
-		@media screen and (max-width: 899px) {
+	article {
+		@media screen and (max-width: (consts.$screen_tablet_min - 1px)) {
+			max-width: calc(100dvw - 2 * var(--spacing-main));
+
 			@at-root body:has(header .burger input:checked) & {
 				pointer-events: none;
 				filter: blur(3px);
@@ -105,7 +116,7 @@ article {
 	flex-grow: 1;
 	margin: var(--spacing-main) 0;
 
-	@media screen and (min-width: 1280px) {
+	@media screen and (min-width: consts.$screen_laptop_min) {
 		display: grid;
 		grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
 		grid-column-gap: var(--spacing-main);
@@ -115,7 +126,7 @@ article {
 			grid-template-columns: 1fr;
 		}
 	}
-	@media screen and (min-width: 900px) {
+	@media screen and (min-width: consts.$screen_tablet_min) {
 		margin-left: var(--spacing-5xl);
 	}
 }
@@ -124,6 +135,7 @@ pre {
 	overflow: auto;
 
 	code {
+		font-size: 0.875em;
 		font-family: var(--font-monospace, ""), var(--font-default-monospace);
 	}
 }
