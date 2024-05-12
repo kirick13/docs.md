@@ -48,7 +48,7 @@ jobs:
           dockerfile: docs/Dockerfile
           context: docs
           buildArgs:
-            - DOCS_MD_VERSION=${{ env.PACKAGE_VERSION }}
+            - "DOCS_MD_VERSION=${{ env.PACKAGE_VERSION }}"
           platforms: linux/amd64,linux/arm64
           push: true
           tags: "kirickme/docs.md-docs:${{ env.PACKAGE_VERSION }}"
