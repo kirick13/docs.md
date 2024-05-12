@@ -38,10 +38,12 @@ Parameters block starts with `<!-- DOCS.MD: PARAMETERS -->` comment.
 Each parameter block starts with `|- ` (ends with 1 space) and contains parameter definition:
 
 - **parameter name** is located before the first `:`;
-- **marks** are enclosed in square brackets `[]` and can be:
+- **marks** are located in the end of the string, enclosed in square brackets `[]` and can be one of:
   - `REQUIRED`;
   - `DEPRECATED`;
   - `EXPERIMENTAL`;
 - **parameter type** is located between name and marks.
 
 All the following lines will be considered as a description of the parameter. That lines must be indented with `|` and 2 spaces after it to maintain the visual formatting.
+
+To change rendered titles or colors of the marks, you can use CSS custom properties described at the [Styling](../configuration/styling.html) page.

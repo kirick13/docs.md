@@ -17,7 +17,7 @@ You can use `<aside>` elements to create blocks with highlighted information.
 </aside>
 ```
 
-By default, info block doesn't have a title. You can set it using `--aside-info` CSS variable.
+By default, info block doesn't have a title. You can set it using [`--aside-info-title`](../configuration/styling.html) CSS variable.
 
 ### Warning
 
@@ -31,11 +31,11 @@ By default, info block doesn't have a title. You can set it using `--aside-info`
 </aside>
 ```
 
-By default, warning block displays a title `WARNING`. You can customize it by setting `--aside-warning` CSS variable.
+By default, warning block displays a title `WARNING`. You can customize it by setting [`--aside-warning-title`](../configuration/styling.html) CSS variable.
 
-## Using markdown inside
+## Aside with markdown
 
-To use markdown inside `<aside>` elements you should put **two newlines** around content:
+To use markdown inside `<aside>` elements you should put **two newlines** around content. Otherwise, markdown will be ignored.
 
 <aside info>
 

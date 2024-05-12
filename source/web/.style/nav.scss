@@ -158,7 +158,7 @@ nav {
 }
 
 @media screen and (max-width: 899px) {
-	body:has(header .burger input:checked) {
+	body:has(header input#burger:checked) {
 		overflow: hidden;
 
 		nav {

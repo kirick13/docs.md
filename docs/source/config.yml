@@ -20,7 +20,10 @@ navigation:
   - title: Configuration
     items:
       - title: Config file
-        url: /configuration/config-file.html
+        url: /configuration/config.html
+        items:
+          - title: Navigation
+            url: /configuration/config/navigation.html
       - title: Styling
         url: /configuration/styling.html
   - title: Custom elements

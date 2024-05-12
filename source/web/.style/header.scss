@@ -41,10 +41,6 @@ header {
 			}
 		}
 
-		input {
-			display: none;
-		}
-
 		@media screen and (min-width: 900px) {
 			display: none;
 		}
@@ -52,6 +48,10 @@ header {
 		@media screen and (max-width: 899px) {
 			display: flex;
 		}
+	}
+
+	input#burger {
+		display: none;
 	}
 
 	.logo {
