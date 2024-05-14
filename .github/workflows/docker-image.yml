@@ -39,8 +39,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: "kirickme/docs.md:${{ env.PACKAGE_VERSION }}"
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=kirickme/docs.md-buildcache
+          cache-to: type=registry,ref=kirickme/docs.md-buildcache,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
 
       - name: Build Docker image of documentation website
         uses: docker/build-push-action@v5
@@ -52,8 +54,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: "kirickme/docs.md-docs:${{ env.PACKAGE_VERSION }}"
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=kirickme/docs.md-docs-buildcache
+          cache-to: type=registry,ref=kirickme/docs.md-docs-buildcache,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
 
       - name: Trigger Supernova to update documentation website
         run: |
