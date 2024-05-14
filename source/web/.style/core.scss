@@ -129,6 +129,12 @@ article {
 	@media screen and (min-width: consts.$screen_tablet_min) {
 		margin-left: var(--spacing-5xl);
 	}
+
+	& > :not(:first-child) {
+		@media screen and (max-width: 1279px) {
+			margin-top: var(--spacing-main);
+		}
+	}
 }
 
 pre {

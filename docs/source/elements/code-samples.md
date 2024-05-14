@@ -82,11 +82,11 @@ print("Hello, world!")
 To add code sample with multiple languages, just add more than one block under the **level 3** header. `docs.md` will automatically add a dropdown to select the language.
 
 <aside info>
+🙂‍↔️ It does not work if there are two code blocks with the same language.
+</aside>
 
-It does not work if there are two code blocks with the same language.
-
-Also, it is not possible to add more than 10 languages in one code sample.
-
+<aside info>
+👀 It is not possible to add more than 10 languages in one code sample.
 </aside>
 
 ````markdown

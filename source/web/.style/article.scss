@@ -2,12 +2,6 @@
 .article {
 	max-width: 750px;
 
-	&:not(:first-child) {
-		@media screen and (max-width: 1279px) {
-			margin-top: var(--spacing-main);
-		}
-	}
-
 	:first-child {
 		margin-top: 0;
 	}
@@ -75,7 +69,7 @@
 		padding: .175em .5em;
 		background-color: rgb(var(--rgb-block-bg));
 		font-size: .875em;
-		white-space: nowrap;
+		// white-space: nowrap;
 	}
 	code:not(a code) {
 		border-color: rgb(var(--rgb-border));
