@@ -22,9 +22,7 @@ jobs:
       - name: Get version from package.json
         id: package_version
         run: |
-          sudo apt-get update \
-          && sudo apt-get install -y jq \
-          && echo "PACKAGE_VERSION=$(jq -r .version source/package.json)" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$(jq -r .version source/package.json)" >> $GITHUB_ENV
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -47,7 +45,7 @@ jobs:
       - name: Build Docker image of documentation website
         uses: docker/build-push-action@v5
         with:
-          dockerfile: docs/Dockerfile
+          file: docs/Dockerfile
           context: docs
           build-args: |
             DOCS_MD_VERSION=${{ env.PACKAGE_VERSION }}
