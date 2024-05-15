@@ -24,7 +24,7 @@ All colors are set by specifying just three RGB values (like `13 10 94`). There 
 | --- | --- |
 | `--radius` | Border radius of the elements. |
 | `--transition-duration` | Duration of the transitions. |
-
+| `--otp-title` | Title for "On This Page" block. |
 
 ## Custom elements properties
 

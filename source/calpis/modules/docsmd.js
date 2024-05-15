@@ -33,6 +33,7 @@ export default async function () {
 
 			const {
 				page_title,
+				page_contents_table,
 				fragment: fragment_page,
 			} = processBody(
 				fragment.childNodes,
@@ -55,6 +56,7 @@ export default async function () {
 						project_config,
 						page: {
 							title: page_title,
+							contents_table: page_contents_table,
 							urls,
 							content: getInnerHtml(fragment_page),
 						},
@@ -81,10 +83,11 @@ function readTemplateCode() {
 
 /**
  * @param {Array<import('parse5/dist/tree-adapters/default').Node>} nodes -
- * @returns {{ page_title: string, fragment: import('parse5/dist/tree-adapters/default').DocumentFragment }} -
+ * @returns {{ page_title: string, page_contents_table: Array<{ level: number, content: string }>, fragment: import('parse5/dist/tree-adapters/default').DocumentFragment }} -
  */
 function processBody(nodes) {
 	let page_title;
+	const page_contents_table = [];
 	const fragment = parse5Tools.createDocumentFragment();
 
 	while (nodes.length > 0) {
@@ -161,6 +164,26 @@ function processBody(nodes) {
 					}
 				}
 				else {
+					processContent(node.childNodes);
+
+					if (node.nodeName === 'h2') {
+						const content = getInnerText(node);
+						const id = encodeURIComponent(
+							content.toLowerCase().replaceAll(/\s+/g, '-'),
+						);
+
+						parse5Tools.setAttribute(
+							node,
+							'id',
+							id,
+						);
+
+						page_contents_table.push({
+							id,
+							content: getInnerText(node),
+						});
+					}
+
 					elements_article.push(node);
 				}
 			}
@@ -186,8 +209,35 @@ function processBody(nodes) {
 
 	return {
 		page_title,
+		page_contents_table,
 		fragment,
 	};
+}
+
+/**
+ * @param {Array<import('parse5/dist/tree-adapters/default').Node>} nodes -
+ */
+function processContent(nodes) {
+	for (const node of nodes) {
+		if (parse5Tools.isElementNode(node)) {
+			if (node.tagName === 'a') {
+				if (
+					node.childNodes.length === 1
+					&& parse5Tools.isElementNode(node.childNodes[0])
+					&& node.childNodes[0].tagName === 'code'
+				) {
+					parse5Tools.setAttribute(
+						node,
+						'data-code',
+						'',
+					);
+				}
+			}
+			else {
+				processContent(node.childNodes);
+			}
+		}
+	}
 }
 
 /**

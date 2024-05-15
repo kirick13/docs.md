@@ -5,9 +5,8 @@
 
 - Add some JavaScript code to detect if `:has()` pseudo-class is supported by the browser.
   - If not, load JavaScript code to replace this functionality.
-- Add "On This Page" section when there are no "Code Samples" in the article.
 - Add nested "Parameters" blocks.
-- Think about setting a base (for example, use `<base>` element?) for the website.
+- Think about setting a base for the website (for example, use `<base>` element?).
 
 ## Compiler
 

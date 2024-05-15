@@ -153,6 +153,17 @@ const HTTP_METHOD_REGEXP = /^\[(GET|POST|PUT|PATCH|DELETE)]\s(.*)$/;
 			</nav>
 			<article>
 				<%- page.content %>
+				<% if (page.contents_table.length > 0) { %>
+					<aside>
+						<div>
+							<% for (const element of page.contents_table) { %>
+								<a href="#<%= element.id %>">
+									<%= element.content %>
+								</a>
+							<% } %>
+						</div>
+					</aside>
+				<% } %>
 			</article>
 		</main>
 	</body>

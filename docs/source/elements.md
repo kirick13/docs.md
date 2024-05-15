@@ -23,9 +23,9 @@ This is an _italic_ text.
 
 This is a ~~strikethrough~~ text.
 
-This is a [link](https://docs-md.kirick.me).
+This is a [link](/).
 
-This is a `code` text. And this is a [`link in code`](https://docs-md.kirick.me).
+This is a `code` text. And this is a [`link in code`](/). And this is a [link with `code` and text around it](/).
 
 ## Lists
 

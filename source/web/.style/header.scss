@@ -47,6 +47,7 @@ header {
 		// on phones
 		@media screen and (max-width: 899px) {
 			display: flex;
+			flex-shrink: 0;
 		}
 	}
 
