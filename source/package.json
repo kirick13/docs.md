@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"version": "0.3.0-beta.7",
+	"version": "0.3.0",
 	"engines": {
 		"node": ">=10.0.0"
 	},
@@ -29,9 +29,6 @@
 		"eslint-plugin-promise": "6.1.1",
 		"eslint-plugin-unicorn": "47.0.0"
 	},
-	"trustedDependencies": [
-		"@minify-html/node"
-	],
 	"scripts": {
 		"bun-lock": "rm bun.lockb ; mv node_modules node_modules+pnpm ; mv node_modules+bun node_modules ; bun install ; mv node_modules node_modules+bun ; mv node_modules+pnpm node_modules"
 	}
