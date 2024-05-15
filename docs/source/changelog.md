@@ -13,7 +13,7 @@ Major update with breaking changes:
 
 - new fresh design with larger fonts and more space;
 - new, faster compiler based on [Calpis](https://github.com/kirick13/calpis) instead of Gulp;
-- removed file structure requiremets;
+- removed file structure requirements;
   - support for different file types to compile;
 - config now is in `config.yml` file;
 - new, more readable syntax for "Parameters" custom element
@@ -21,7 +21,8 @@ Major update with breaking changes:
 - new syntax for defining code samples;
   - it is now possible to define multiple code samples in one article;
   - support for multiple languages in one code sample — and selecting them using dropdown.
-- all new Navigation section with collapsable categories.
+- all new Navigation section with collapsable categories;
+- new On This Page section.
 
 ## 0.2.1 &nbsp; <small>14 Jun 2023</small>
 
