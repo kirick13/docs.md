@@ -1,9 +1,9 @@
 
 # docs.md
 
-Docs generator based on Markdown and EJS.
+Docs.md is a website generator based on Markdown and EJS.
 
-Read our [documentation](https://docs-md.kirick.me) and create your own [documentation website](https://docs-md.kirick.me/getting-started.html) in seconds.
+Read our [documentation](https://docs-md.kirick.me) and create your own [documentation website](https://docs-md.kirick.me/#getting-started) in seconds.
 
 ## Features
 
@@ -17,20 +17,22 @@ Create `.md` files and they will be compiled to web pages.
       <img alt="Design / Mobile" src="https://user-images.githubusercontent.com/2053378/169659833-a1326811-671d-4a08-a3af-4ac412b90bb5.jpg">
     </td>
     <td align=center>
-      <img alt="Design / Mobile / Menu" src="https://user-images.githubusercontent.com/2053378/169659836-13143815-21f6-47b5-90c4-5706331290ab.jpg">
+      <img alt="Design / Mobile / Menu" src="https://github.com/kirick13/docs.md/assets/2053378/a04daa4c-8929-4e71-ae9b-6dbd4b36e8df">
     </td>
   </tr>
 </table>
 
 ### Easy to maintain
 
-Just edit files in `source/pages` and compiled web pages will appear inside `build` directory with the same paths (but obviously with `.html` extension).
+Just create `.md` files and `docs.md` will compile them to lightweight `.html` pages. Also it will bundle your styles and copy other files as is.
 
-![](https://user-images.githubusercontent.com/2053378/169660253-86210cb6-82cb-4def-b8b5-53fda2d9ed01.jpg)
+There are files of the `docs.md` [website](https://docs-md.kirick.me):
+
+![](https://github.com/kirick13/docs.md/assets/2053378/54b1b47c-ccaa-4d5a-b11e-0c25e547b330)
 
 ### Easy to configure
 
-Edit your `source/config.json` to change default block names or colors.
+Edit your `config.yml` to create navigation. Create CSS files to change how your website looks.
 
 ### Flexibility using [EJS](https://ejs.co)
 
@@ -42,7 +44,7 @@ You can use includes to not to write the same text twice. Or use any other [EJS 
 
 Are you tired of simple websites built with React, Webpack, much npm packages and tons of other JavaScript? **Forget about it.**
 
-`docs.md` will build your website with that [CSS file](https://docs-md.kirick.me/css/style.css) and that [JS file](https://docs-md.kirick.me/js/main.js). **That's all.**
+`docs.md` builds your website with that [CSS file](https://docs-md.kirick.me/css/style.css) and **absolutely no JavaScript code**.
 
 ### Beautiful, responsive design
 
@@ -52,16 +54,16 @@ Your docs will look beautiful on all devices.
   <tbody>
     <tr>
       <td colspan=2>
-        <img width="100%" alt="Design / Desktop" src="https://user-images.githubusercontent.com/2053378/169659261-2ce172a8-d34c-4fb7-b71d-91281a9bc585.png">
+        <img width="100%" alt="Design / Desktop" src="https://github.com/kirick13/docs.md/assets/2053378/5d062ef5-b6da-4358-aa54-e5d82357a754">
       </td>
     </tr>
     <tr></tr>
     <tr>
       <td align=center>
-        <img alt="Design / Mobile" src="https://user-images.githubusercontent.com/2053378/169659084-be1c0e06-501f-406c-ae28-746406d7269c.jpg">
+        <img alt="Design / Mobile" src="https://github.com/kirick13/docs.md/assets/2053378/b83efc95-fed4-4a33-a529-f883a80b90be">
       </td>
       <td align=center>
-        <img alt="Design / Mobile / Menu" src="https://user-images.githubusercontent.com/2053378/169659070-cb19801e-01ba-437f-8945-1e76e1b8f3ce.jpg">
+        <img alt="Design / Mobile / Menu" src="https://github.com/kirick13/docs.md/assets/2053378/0d599839-5792-438b-8e5f-9a12f288f324.jpg">
       </td>
     </tr>
   </tbody>
