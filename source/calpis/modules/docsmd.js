@@ -164,8 +164,6 @@ function processBody(nodes) {
 					}
 				}
 				else {
-					processContent(node.childNodes);
-
 					if (node.nodeName === 'h2') {
 						const content = getInnerText(node);
 						const id = encodeURIComponent(
@@ -207,6 +205,8 @@ function processBody(nodes) {
 		}
 	}
 
+	processContent(fragment.childNodes);
+
 	return {
 		page_title,
 		page_contents_table,
@@ -230,6 +230,28 @@ function processContent(nodes) {
 						node,
 						'data-code',
 						'',
+					);
+				}
+
+				const href = parse5Tools.getAttribute(node, 'href');
+				if (
+					typeof href === 'string'
+					&& (
+						href.startsWith('//')
+						|| href.startsWith('http://')
+						|| href.startsWith('https://')
+					)
+				) {
+					parse5Tools.setAttribute(
+						node,
+						'target',
+						'_blank',
+					);
+
+					parse5Tools.setAttribute(
+						node,
+						'rel',
+						'noopener noreferrer',
 					);
 				}
 			}
