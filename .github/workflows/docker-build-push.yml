@@ -1,0 +1,62 @@
+name: Build and Push Docker Image
+
+# Trigger the workflow on push events to the main branch
+on:
+  push:
+    branches:
+      - dev-kirick
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Prepare Docker Multibuilder
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Get version from package.json
+        id: package_version
+        run: |
+          echo "PACKAGE_VERSION=$(jq -r .version source/package.json)" >> $GITHUB_ENV
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build core Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: "kirickme/docs.md:${{ env.PACKAGE_VERSION }}"
+          cache-from: type=registry,ref=kirickme/buildcache:docs.md
+          cache-to: type=registry,ref=kirickme/buildcache:docs.md,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
+
+      - name: Build Docker image of documentation website
+        uses: docker/build-push-action@v5
+        with:
+          file: docs/Dockerfile
+          context: docs
+          build-args: |
+            DOCS_MD_VERSION=${{ env.PACKAGE_VERSION }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: "kirickme/docs.md-docs:${{ env.PACKAGE_VERSION }}"
+          cache-from: type=registry,ref=kirickme/buildcache:docs.md-docs
+          cache-to: type=registry,ref=kirickme/buildcache:docs.md-docs,mode=max
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
+
+      - name: Trigger Supernova to update documentation website
+        run: |
+          curl -X POST -H "Authorization: Secret ${{ secrets.SUPERNOVA_SECRET }}" -sSD - https://${{ secrets.SUPERNOVA_HOST }}/webhook/docs-md-dev

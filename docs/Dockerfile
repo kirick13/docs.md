@@ -1,5 +1,7 @@
-FROM kirickme/docs.md:0.2.1 AS builder
-COPY src /var/docs.md/source
+ARG DOCS_MD_VERSION
+
+FROM kirickme/docs.md:$DOCS_MD_VERSION AS builder
+COPY source /var/docs.md/source
 RUN  docs.md
 
 FROM nginx:1.25.0-alpine

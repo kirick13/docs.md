@@ -1,0 +1,170 @@
+<%
+const {
+	BUILD_ID,
+	docsmd,
+	project_config,
+	page,
+} = locals;
+
+const HTTP_METHOD_REGEXP = /^\[(GET|POST|PUT|PATCH|DELETE)]\s(.*)$/;
+%>
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+			>
+		<meta
+			name="generator"
+			content="Docs.md <%= docsmd.version %>"
+			>
+		<link
+			rel="icon"
+			href="<%= project_config.icons?.favicon %>"
+			>
+		<!-- <style>:root,body{background:var(--color-bg, rgb(27 28 33))}</style> -->
+		<title><%= page.title %> :: <%= project_config.title %></title>
+		<link
+			rel="stylesheet"
+			href="/css/style.css?_=<%= BUILD_ID %>"
+			onload="document.body.style.display=''"
+			>
+	</head>
+	<body>
+		<header>
+			<div class="widther">
+				<label
+					for="burger"
+					class="burger"
+					>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+						<path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/>
+					</svg>
+				</label>
+				<input
+					type="checkbox"
+					id="burger">
+				<div class="logo">
+					<img
+						src="<%= project_config.icons?.header %>"
+						alt="logo"
+						>
+					<div>
+						<%= project_config.title %>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="widther">
+			<nav>
+				<div class="nav-body">
+					<% for (const block of project_config.navigation) { %>
+						<div class="nav-block">
+							<% if (block.title) { %>
+								<div class="nav-title">
+									<%= block.title %>
+								</div>
+							<% } %>
+							<% for (const item of block.items) { %>
+								<%
+									const item_id = Math.random().toString(36).slice(2, 7);
+									const is_url = typeof item.url === 'string';
+									const is_selected = is_url && page.urls.has(item.url);
+									const is_subitem_selected = item.items
+										? item.items.some(subitem => page.urls.has(subitem.url))
+										: false;
+								%>
+								<% if (is_url) { %>
+									<a
+										class="nav-item<%= is_selected || is_subitem_selected ? ' _selected' : '' %>"
+										href="<%= item.url %>"
+										>
+								<% } else { %>
+									<label
+										for="<%- item_id %>"
+										class="nav-item<%= is_selected || is_subitem_selected ? ' _selected' : '' %>"
+										>
+								<% } %>
+								<span>
+									<%
+										const title_match = item.title.match(HTTP_METHOD_REGEXP);
+									%>
+									<% if (title_match) { %>
+										<span
+											class="http-method"
+											data-method="<%= title_match[1] %>"
+											>
+										</span>
+										<%= title_match[2] %>
+									<% } else { %>
+										<%= item.title %>
+									<% } %>
+								</span>
+								<% if (item.items) { %>
+									<div class="nav-arrow">
+										<label for="<%- item_id %>">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+												<path d="M4.47 7.22a.75.75 0 0 1 1.06 0L10 11.69l4.47-4.47a.75.75 0 1 1 1.06 1.06l-5 5a.75.75 0 0 1-1.06 0l-5-5a.75.75 0 0 1 0-1.06Z"/>
+											</svg>
+										</label>
+										<input
+											type="checkbox"
+											id="<%- item_id %>"
+											<%= is_selected || is_subitem_selected ? 'checked disabled' : '' %>
+											>
+									</div>
+								<% } %>
+								<% if (is_url) { %>
+									</a>
+								<% } else { %>
+									</label>
+								<% } %>
+								<% if (item.items) { %>
+									<div class="nav-subitems">
+										<% for (const subitem of item.items) { %>
+											<a
+												class="<%= page.urls.has(subitem.url) ? '_selected' : '' %>"
+												href="<%= subitem.url %>"
+												>
+												<%
+													const title_match = subitem.title.match(HTTP_METHOD_REGEXP);
+												%>
+												<% if (title_match) { %>
+													<span
+														class="http-method"
+														data-method="<%= title_match[1] %>"
+														>
+													</span>
+													<%= title_match[2] %>
+												<% } else { %>
+													<%= subitem.title %>
+												<% } %>
+											</a>
+										<% } %>
+									</div>
+								<% } %>
+							<% } %>
+						</div>
+					<% } %>
+				</div>
+			</nav>
+			<article>
+				<%- page.content %>
+				<% if (page.contents_table.length > 0) { %>
+					<aside>
+						<div>
+							<% for (const element of page.contents_table) { %>
+								<a href="#<%= element.id %>">
+									<%= element.content %>
+								</a>
+							<% } %>
+						</div>
+					</aside>
+				<% } %>
+			</article>
+		</main>
+	</body>
+</html>

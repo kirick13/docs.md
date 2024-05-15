@@ -1,0 +1,213 @@
+
+@use './consts.scss' as consts;
+
+:root {
+	--width: 1000px;
+
+	--rgb-bg: 24 24 26;
+	--rgb-block-bg: 34 34 36;
+	--rgb-border: 44 44 46;
+	--rgb-font-title: 255 255 255;
+	--rgb-font: 160 160 170;
+	--rgb-accent: 59 130 246;
+
+	--font-default: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, sans-serif;
+	--font-default-monospace: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+	--spacing-xs: .25rem;
+	--spacing-sm: .375rem;
+	--spacing-md: .5rem;
+	--spacing-lg: .75rem;
+	--spacing-xl: 1rem;
+	--spacing-2xl: 1.25rem;
+	--spacing-3xl: 1.5rem;
+	--spacing-4xl: 2rem;
+	--spacing-5xl: 2.5rem;
+
+	--spacing-main: var(--spacing-4xl);
+
+	@media screen and (max-width: (consts.$screen_bigphone_min - 1px)) {
+		--spacing-main: var(--spacing-2xl);
+	}
+
+	--radius: 8px;
+
+	--transition-diration: .2s;
+
+	--otp-title: 'ON THIS PAGE';
+	--aside-warning-title: 'WARNING';
+}
+
+* {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+:target {
+    scroll-margin-top: calc(var(--header-height) + var(--spacing-main));
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: rgb(var(--rgb-bg));
+}
+
+body,
+input,
+select,
+table {
+	color: rgb(var(--rgb-font));
+	font-size: 16px;
+	font-family: var(--font, ''), var(--font-default);
+
+	@media screen and (max-width: (consts.$screen_bigphone_min - 1px)) {
+		font-size: 15px;
+	}
+}
+
+a {
+	color: rgb(var(--rgb-accent));
+	text-decoration: none;
+	transition: border-bottom-color var(--transition-diration) ease;
+
+	&:hover {
+		text-decoration: none;
+
+		&,
+		code {
+			border-color: rgb(var(--rgb-accent)) !important;
+		}
+	}
+
+	&:not([href]) {
+		cursor: default;
+	}
+
+	&:not([data-code]) {
+		border-bottom: 1px solid rgb(var(--rgb-accent) / .5);
+	}
+
+	code {
+		border-color: rgb(var(--rgb-accent) / .5) !important;
+		color: rgb(var(--rgb-accent));
+		transition: border-color var(--transition-diration) ease;
+	}
+}
+
+.widther {
+	margin: auto;
+	padding: 0 var(--spacing-main);
+	max-width: 1750px;
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+
+	article {
+		@media screen and (max-width: (consts.$screen_tablet_min - 1px)) {
+			max-width: calc(100dvw - 2 * var(--spacing-main));
+
+			@at-root body:has(header input#burger:checked) & {
+				pointer-events: none;
+				filter: blur(3px);
+			}
+		}
+	}
+}
+
+article {
+	flex-grow: 1;
+	margin: var(--spacing-main) 0;
+
+	@media screen and (min-width: consts.$screen_laptop_min) {
+		display: grid;
+		grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+		grid-column-gap: var(--spacing-main);
+		grid-row-gap: var(--spacing-xl);
+
+		&:not(:has(> .samples)) {
+			&:has(> aside) {
+				grid-template-columns: minmax(0, 750px) minmax(250px, 1fr);
+			}
+
+			&:not(:has(> aside)) {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+	@media screen and (min-width: consts.$screen_tablet_min) {
+		margin-left: var(--spacing-5xl);
+	}
+
+	& > :not(:first-child) {
+		@media screen and (max-width: (consts.$screen_laptop_min - 1px)) {
+			margin-top: var(--spacing-main);
+		}
+	}
+
+	> aside {
+		max-width: 250px;
+
+		&:not(:nth-child(2)) {
+			display: none;
+		}
+		@media screen and (max-width: (consts.$screen_laptop_min - 1px)) {
+			display: none;
+		}
+
+		> div {
+			position: sticky;
+			top: calc(var(--header-height) + var(--spacing-main));
+
+			&::before {
+				content: var(--otp-title);
+				display: block;
+				margin-bottom: var(--spacing-xl);
+				color: rgb(var(--rgb-font-title));
+				font-size: .9em;
+				font-weight: 500;
+			}
+
+			& > * {
+				display: block;
+				margin-top: var(--spacing-md);
+				border-bottom: none !important;
+				color: rgb(var(--rgb-font));
+				font-size: .95em;
+				transition: color var(--transition-diration) ease;
+
+				&:hover {
+					color: rgb(var(--rgb-font-title));
+				}
+			}
+		}
+	}
+}
+
+pre {
+	line-height: 1.25em;
+	overflow: auto;
+
+	code {
+		font-size: 0.875em;
+		font-family: var(--font-monospace, ""), var(--font-default-monospace);
+	}
+}
+
+.http-method {
+	display: inline-flex;
+	margin-right: .35em;
+	border-radius: calc(var(--radius) * 0.75);
+	padding: .15em .4em;
+	background-color: rgb(var(--rgb-accent) / .25);
+	color: rgb(var(--rgb-accent));
+	font-size: .85em;
+	font-weight: 800;
+
+	&::before {
+		content: attr(data-method);
+	}
+}
