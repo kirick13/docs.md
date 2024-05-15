@@ -37,8 +37,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: "kirickme/docs.md:${{ env.PACKAGE_VERSION }}"
-          cache-from: type=registry,ref=kirickme/docs.md-buildcache
-          cache-to: type=registry,ref=kirickme/docs.md-buildcache,mode=max
+          cache-from: type=registry,ref=kirickme/buildcache:docs.md
+          cache-to: type=registry,ref=kirickme/buildcache:docs.md,mode=max
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
 
@@ -52,8 +52,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: "kirickme/docs.md-docs:${{ env.PACKAGE_VERSION }}"
-          cache-from: type=registry,ref=kirickme/docs.md-docs-buildcache
-          cache-to: type=registry,ref=kirickme/docs.md-docs-buildcache,mode=max
+          cache-from: type=registry,ref=kirickme/buildcache:docs.md-docs
+          cache-to: type=registry,ref=kirickme/buildcache:docs.md-docs,mode=max
           # cache-from: type=gha
           # cache-to: type=gha,mode=max
 
