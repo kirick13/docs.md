@@ -53,6 +53,10 @@ This is a `code` text. And this is a [`link in code`](/). And this is a [link wi
 
 ## Code block
 
+Line numbers are added using [`CSS counters`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_counter_styles/Using_CSS_counters), so they doesn't add extra bytes to HTML files.
+
+Line numbers are displayed correctly up to 999 lines.
+
 ```javascript
 console.log('Hello, world!');
 ```

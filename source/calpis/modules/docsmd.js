@@ -255,6 +255,14 @@ function processContent(nodes) {
 					);
 				}
 			}
+			else if (
+				node.tagName === 'span'
+				&& /(^|\s)line(\s|$)/.test(parse5Tools.getAttribute(node, 'class'))
+				&& node.childNodes.length === 0
+				&& node.parentNode.childNodes.indexOf(node) === node.parentNode.childNodes.length - 1
+			) {
+				parse5Tools.removeNode(node);
+			}
 			else {
 				processContent(node.childNodes);
 			}
