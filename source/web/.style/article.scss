@@ -78,14 +78,29 @@
 	}
 
 	pre {
+		position: relative;
+		margin-top: calc(var(--spacing-lg) + .4em);
 		border: 1px solid rgb(var(--rgb-border));
 		border-radius: var(--radius);
-		padding: var(--spacing-lg) var(--spacing-xl);
+		padding: calc(var(--spacing-lg) + .4em) var(--spacing-xl) var(--spacing-lg);
 		max-width: 100%;
 		background-color: rgb(var(--rgb-block-bg));
-		// font-size: .9em;
-		overflow: auto;
-		white-space: pre-wrap;
+		// overflow: hidden;
+		word-break: break-all;
+    	text-wrap: wrap;
+
+		&::before {
+			content: attr(data-lang);
+			display: block;
+			position: absolute;
+			top: -.9em;
+			left: var(--spacing-xl);
+			border: 1px solid rgb(var(--rgb-border));
+			border-radius: var(--radius);
+			padding: .1em .667em;
+			font-size: .85em;
+			background-color: rgb(var(--rgb-block-bg));
+		}
 	}
 
 	ul,

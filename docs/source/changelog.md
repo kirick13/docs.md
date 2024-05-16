@@ -7,7 +7,12 @@ That website is on version **<%= locals.docsmd.version %>**.
 
 </aside>
 
-## 0.3.0 &nbsp; <small>10 May 2024</small>
+## 0.3.1 &nbsp; <small>16 May 2024</small>
+
+- Added line numeration to all code blocks.
+- Added language name to code blocks in the article.
+
+## 0.3.0 &nbsp; <small>15 May 2024</small>
 
 Major update with breaking changes:
 

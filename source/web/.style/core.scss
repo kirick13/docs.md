@@ -189,11 +189,56 @@ article {
 
 pre {
 	line-height: 1.25em;
-	overflow: auto;
+	// overflow: auto;
 
-	code {
+	> code {
+		counter-reset: line;
 		font-size: 0.875em;
 		font-family: var(--font-monospace, ""), var(--font-default-monospace);
+
+		> .line {
+			--multiplier: 1;
+			--width: calc(.63em * var(--multiplier));
+			--absolute-offset: calc(var(--spacing-lg) + var(--width));
+
+			// using absolute positioning
+			position: relative;
+			display: inline-block;
+			margin-left: var(--absolute-offset);
+
+			&::before {
+				content: counter(line);
+				counter-increment: line;
+				display: inline-flex;
+				align-items: center;
+				justify-content: flex-end;
+				width: var(--width);
+				color: rgb(var(--rgb-font));
+				font-size: .85em;
+
+				// using inline positioning
+				// margin-right: var(--spacing-lg);
+				// height: 0;
+				// vertical-align: middle;
+
+				// using absolute positioning
+				position: absolute;
+				top: .05em;
+    			left: calc(-1 * var(--absolute-offset));
+			}
+
+			&:empty::after {
+				content: '\00a0';
+			}
+		}
+
+		&:has(> .line:nth-child(10)) > .line {
+			--multiplier: 2;
+		}
+
+		&:has(> .line:nth-child(100)) > .line {
+			--multiplier: 3;
+		}
 	}
 }
 
